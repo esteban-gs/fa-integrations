@@ -9,7 +9,7 @@ export class FormConvertController {
 
   @Post()
   @FormDataRequest()
-  async getHello(@Body() submission: FormDataCovidSafetyDto) {
+  async getHello(@Body() submission: FormDataCovidSafetyDto): Promise<any> {
     const submissionAsJson = JSON.stringify(submission);
     Logger.verbose(JSON.stringify(submission));
 

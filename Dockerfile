@@ -1,15 +1,15 @@
-FROM node:14.15.5-alpine
+FROM node:14-alpine
 
 # Create app directory
 WORKDIR /usr/src/app
 
 # Copy package files
-COPY package.json package-lock.json ./
+COPY package*.json .
 
 # Install packages
-RUN npm ci
+RUN npm i
 
-RUN npm install -g @nestjs/cli
+# RUN npm install -g @nestjs/cli
 
 # Bundle app source
 COPY . .
