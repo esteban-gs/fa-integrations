@@ -6,12 +6,12 @@ ENV NODE_ENV=${NODE_ENV}
 WORKDIR /usr/src/app
 
 # Copy package files
-COPY package.json ./
+COPY package.json package-lock.json ./
 
 # Install packages
 RUN npm install
 
-RUN npm install -g @nestjs/cli
+# RUN npm install -g @nestjs/cli
 
 # Bundle app source
 COPY . .
