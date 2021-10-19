@@ -6,7 +6,7 @@ ENV NODE_ENV=${NODE_ENV}
 WORKDIR /usr/src/app
 
 # Copy package files
-COPY package*.json ./
+COPY package.json ./
 
 # Install packages
 RUN npm install
