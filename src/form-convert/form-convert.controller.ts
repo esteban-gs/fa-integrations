@@ -14,6 +14,6 @@ export class FormConvertController {
     Logger.verbose(JSON.stringify(submission));
 
     const triggerUrl = this.configs.get('REPOST_TO_TRIGGER_URL');
-    return await this.http.post(triggerUrl, submission);
+    return await this.http.post(triggerUrl, submissionAsJson);
   }
 }
