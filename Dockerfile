@@ -1,7 +1,5 @@
 FROM node:14.15.5-alpine
 
-ARG NODE_ENV=production
-ENV NODE_ENV=${NODE_ENV}
 # Create app directory
 WORKDIR /usr/src/app
 
@@ -9,9 +7,9 @@ WORKDIR /usr/src/app
 COPY package.json package-lock.json ./
 
 # Install packages
-RUN npm install
+RUN npm ci
 
-# RUN npm install -g @nestjs/cli
+RUN npm install -g @nestjs/cli
 
 # Bundle app source
 COPY . .
