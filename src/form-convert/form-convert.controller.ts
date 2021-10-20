@@ -11,8 +11,11 @@ export class FormConvertController {
     const submissionAsJson = JSON.stringify(submission);
     Logger.verbose(JSON.stringify(submission));
 
-
     const triggerUrl = this.configs.get('REPOST_TO_TRIGGER_URL');
-    return await this.http.post(triggerUrl, submissionAsJson);
+    return await this.http.post(triggerUrl, submissionAsJson, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
   }
 }
