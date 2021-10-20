@@ -9,13 +9,13 @@ export class FormDataCovidSafetyDto {
   public onsiteRole: string;
   public startingDateOrEventName: string;
   public whichVaccine: string;
-  public dateOfFirstDose: Date;
-  public dateOfSecondDose?: Date;
+  public dateOfFirstDose: string;
+  public dateOfSecondDose?: string;
   public proofMethod: string;
   public contactWithInfectedInLastTwoWeeks?: string;
   public experiencedSymptomsInLastTwoWeeks?: string;
   public willingToComplyWithAnyAndAllSafetyAndMaskMandatesSetForthByTheEvent: string;
-  public attest: boolean;
+  public attest: string;
   public responseUrl: string;
   public referer: string;
   public unprotedtedFileList: string;

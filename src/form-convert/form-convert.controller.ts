@@ -9,10 +9,11 @@ export class FormConvertController {
   @Post()
   async getHello(@Body() submission: FormDataCovidSafetyDto): Promise<any> {
     const submissionAsJson = JSON.stringify(submission);
+    const deepCopy = JSON.parse(submissionAsJson);
     Logger.verbose(submission);
 
     const triggerUrl = this.configs.get('REPOST_TO_TRIGGER_URL');
-    return await this.http.post(triggerUrl, submission, {
+    return await this.http.post(triggerUrl, deepCopy, {
       headers: {
         'Content-Type': 'application/json',
       },
