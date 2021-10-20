@@ -1,10 +1,3 @@
-import {
-  FileSystemStoredFile,
-  HasMimeType,
-  IsFile,
-  MaxFileSize,
-} from 'nestjs-form-data';
-
 export class FormDataCovidSafetyDto {
   public vacccineDocsVerified?: string;
   public verifierInitials?: string;
@@ -26,9 +19,4 @@ export class FormDataCovidSafetyDto {
   public responseUrl: string;
   public referer: string;
   public unprotedtedFileList: string;
-
-  @IsFile()
-  @MaxFileSize(1e6)
-  @HasMimeType(['image/jpeg', 'image/png'])
-  avatar?: FileSystemStoredFile;
 }
