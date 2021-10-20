@@ -7,7 +7,7 @@ WORKDIR /usr/src/app
 COPY package*.json .
 
 # Install packages
-RUN npm i
+RUN npm ci
 
 # RUN npm install -g @nestjs/cli
 
