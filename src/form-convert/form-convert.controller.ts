@@ -5,6 +5,7 @@ import {
   HttpService,
   Post,
 } from '@nestjs/common';
+import axios from '@nestjs/common/node_modules/axios';
 import { ConfigService } from '@nestjs/config';
 
 @Controller('form-convert')
@@ -29,10 +30,18 @@ export class FormConvertController {
       return new BadRequestException('trigger url invalid');
     }
 
-    const response = this.http.post(dynamicTriggerUrl, submission, {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
+    axios
+      .post(dynamicTriggerUrl, submission, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+      .then((response) => console.log(response))
+      .catch((error) => console.log(JSON.stringify(error)));
+    // const response = this.http.post(dynamicTriggerUrl, submission, {
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //   },
+    // });
   }
 }
