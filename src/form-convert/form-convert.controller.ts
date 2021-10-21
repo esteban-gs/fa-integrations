@@ -1,4 +1,11 @@
-import { Body, Controller, HttpService, Logger, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  HttpCode,
+  HttpService,
+  Logger,
+  Post,
+} from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 
 @Controller('form-convert')
@@ -9,7 +16,20 @@ export class FormConvertController {
   getHello(@Body() submission: any): any {
     console.log(submission);
     const triggerUrl = this.configs.get('REPOST_TO_TRIGGER_URL');
-    const response = this.http.post(triggerUrl, submission, {
+
+    // use default or value passed
+    const dynamicTriggerUrl: string =
+      submission.REPOST_TO_TRIGGER_URL ?? triggerUrl;
+
+    // check for correct url pattern
+    const validateDynamicTriggerUrl =
+      dynamicTriggerUrl.includes('.azure.com:443');
+
+    if (!validateDynamicTriggerUrl) {
+      return HttpCode(403);
+    }
+
+    const response = this.http.post(dynamicTriggerUrl, submission, {
       headers: {
         'Content-Type': 'application/json',
       },
@@ -17,8 +37,8 @@ export class FormConvertController {
     let result;
     response.toPromise().then((res) => {
       result = res;
+      console.log(res);
     });
-    console.log(result);
     return result;
   }
 }
