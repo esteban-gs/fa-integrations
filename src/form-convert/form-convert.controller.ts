@@ -29,13 +29,10 @@ export class FormConvertController {
       return new BadRequestException('trigger url invalid');
     }
 
-    this.http
-      .post(dynamicTriggerUrl, submission, {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      })
-      .toPromise()
-      .catch((res) => console.log(res.data.error));
+    const response = this.http.post(dynamicTriggerUrl, submission, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
   }
 }
