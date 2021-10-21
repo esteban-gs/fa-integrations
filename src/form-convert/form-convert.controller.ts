@@ -3,6 +3,8 @@ import {
   Body,
   Controller,
   HttpService,
+  InternalServerErrorException,
+  Logger,
   Post,
 } from '@nestjs/common';
 import axios from '@nestjs/common/node_modules/axios';
@@ -13,16 +15,17 @@ export class FormConvertController {
   constructor(private configs: ConfigService, private http: HttpService) {}
 
   @Post()
-  getHello(@Body() submission: any): any {
+  async getHello(@Body() submission: any): Promise<any> {
     console.log(submission);
-    const triggerUrl = this.configs.get('REPOST_TO_TRIGGER_URL');
-
-    // use default or value passed
-    const dynamicTriggerUrl: string =
-      submission.REPOST_TO_TRIGGER_URL ?? triggerUrl;
+    if (!!!submission.triggerUrlId) {
+      return new InternalServerErrorException('triggerUrlId is required');
+    }
+    const triggerUrl = this.configs.get(
+      `REPOST_TO_TRIGGER_URL_${submission.triggerUrlId ?? 'BAB'}`,
+    );
 
     // check for correct url pattern
-    const validateDynamicTriggerUrl = dynamicTriggerUrl
+    const validateDynamicTriggerUrl = triggerUrl
       .toString()
       .includes('.azure.com:443');
 
@@ -30,19 +33,14 @@ export class FormConvertController {
       return new BadRequestException('trigger url invalid');
     }
 
-    // axios
-    //   .post(dynamicTriggerUrl, submission, {
-    //     headers: {
-    //       'Content-Type': 'application/json',
-    //     },
-    //   })
-    //   .then((response) => console.log(response))
-    //   .catch((error) => console.log(JSON.stringify(error)));
-    const response = this.http.post(dynamicTriggerUrl, submission, {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-    return response.toPromise();
+    Logger.log('request url', triggerUrl);
+    Logger.log('payload', JSON.stringify(submission));
+    const response = await this.http
+      .post(triggerUrl, submission, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+      .toPromise();
   }
 }
