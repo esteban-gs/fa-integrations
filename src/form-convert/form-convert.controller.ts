@@ -2,9 +2,7 @@ import {
   BadRequestException,
   Body,
   Controller,
-  HttpCode,
   HttpService,
-  Logger,
   Post,
 } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
@@ -31,16 +29,10 @@ export class FormConvertController {
       return new BadRequestException('trigger url invalid');
     }
 
-    const response = this.http.post(dynamicTriggerUrl, submission, {
+    this.http.post(dynamicTriggerUrl, submission, {
       headers: {
         'Content-Type': 'application/json',
       },
     });
-    let result;
-    response.toPromise().then((res) => {
-      result = res;
-      console.log(res);
-    });
-    return result;
   }
 }
