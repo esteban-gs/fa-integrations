@@ -1,4 +1,5 @@
 import {
+  BadRequestException,
   Body,
   Controller,
   HttpCode,
@@ -22,11 +23,12 @@ export class FormConvertController {
       submission.REPOST_TO_TRIGGER_URL ?? triggerUrl;
 
     // check for correct url pattern
-    const validateDynamicTriggerUrl =
-      dynamicTriggerUrl.includes('.azure.com:443');
+    const validateDynamicTriggerUrl = dynamicTriggerUrl
+      .toString()
+      .includes('.azure.com:443');
 
     if (!validateDynamicTriggerUrl) {
-      return HttpCode(403);
+      return new BadRequestException('trigger url invalid');
     }
 
     const response = this.http.post(dynamicTriggerUrl, submission, {
