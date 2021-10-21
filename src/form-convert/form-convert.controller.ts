@@ -36,6 +36,6 @@ export class FormConvertController {
         },
       })
       .toPromise()
-      .catch((res) => console.log(res));
+      .catch((res) => console.log(res.data.error));
   }
 }
