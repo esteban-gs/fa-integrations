@@ -8,7 +8,7 @@ Each variable name part should be unique. The name part gets passed with the for
 
 ``` typescript
 @Post()
-  async get(@Body() submission: any): Promise<any> {
+  async post(@Body() submission: any): Promise<any> {
     console.log(submission);
     if (!!!submission.triggerUrlId) {
       return new InternalServerErrorException('triggerUrlId is required');
