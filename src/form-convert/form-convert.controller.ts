@@ -15,7 +15,7 @@ export class FormConvertController {
   constructor(private configs: ConfigService, private http: HttpService) {}
 
   @Post()
-  async getHello(@Body() submission: any): Promise<any> {
+  async post(@Body() submission: any): Promise<any> {
     console.log(submission);
     if (!!!submission.triggerUrlId) {
       return new InternalServerErrorException('triggerUrlId is required');
