@@ -1,4 +1,4 @@
-FROM node:14-alpine
+FROM node:17-alpine
 
 # Create app directory
 WORKDIR /usr/src/app
@@ -7,6 +7,7 @@ WORKDIR /usr/src/app
 COPY package*.json .
 
 # Install packages
+RUN npm install -g npm@7
 RUN npm ci
 
 # RUN npm install -g @nestjs/cli
