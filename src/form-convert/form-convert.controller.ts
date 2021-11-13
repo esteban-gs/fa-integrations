@@ -7,9 +7,7 @@ import {
   Post,
 } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { HttpStatus } from '@nestjs/common';
-import { Http2ServerResponse } from 'http2';
-import { catchError, map, tap } from 'rxjs';
+import { map, tap } from 'rxjs';
 import { FormConvertService } from './form-convert.service';
 import { AxiosResponse } from 'axios';
 
@@ -23,7 +21,7 @@ export class FormConvertController {
   @Post()
   async post(@Body() submission: any) {
     console.log(submission);
-    if (!!!submission.triggerUrlId) {
+    if (!!!submission.triggerUrlId || submission.triggerUrlId === '') {
       return new InternalServerErrorException('triggerUrlId is required');
     }
     const triggerUrl = this.configs.get(
