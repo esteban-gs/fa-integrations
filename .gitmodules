@@ -1,0 +1,3 @@
+[submodule "fa-integrations-ui"]
+	path = fa-integrations-ui
+	url = git@github.com:esteban-gs/fa-integrations-ui.git
