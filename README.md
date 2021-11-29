@@ -1,4 +1,10 @@
-# Form Convert
+# FA Integrations
+
+### Features
+- **Form Convert**: takes in a post request as http `form-data` and makes a post request to a given url as `application/json`. Built as part of a custom integration between Form Assembly's http post connector and O365 Power automate Post trigger. 
+- **Form Adapter**: takes a post request with a defined Json schema and resubmits the form to a FA form. Allows programatic form submission.
+
+## Form Convert
 A simple NestJs Rest API with a single controller that takes in a post request as http `form-data` and makes a post request to a given url as `application/json`. Built as part of a custom integration between Form Assembly's http post connector and O365 Power automate Post trigger. 
 
 ### Setting the repost url
@@ -38,3 +44,26 @@ Each variable name part should be unique. The name part gets passed with the for
   }
 ```
 ---
+
+## Form Adapter
+
+Takes a post request with an `application/json` body payload: 
+
+``` json
+[
+	{
+		"field": "tfa_1",
+		"value": "field value for tfa_1"
+	},
+	{
+		"field": "tfa_3",
+		"value": "100"
+	},
+	{
+		"field": "tfa_5",
+		"value": "field value for tfa_5"
+	}
+]
+```
+
+The field properties are found in your form html. All other required dynamic fields will be automatically filled in by this integration and included with the outgoing post request to your form.
