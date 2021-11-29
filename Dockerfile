@@ -4,7 +4,7 @@ FROM node:17-alpine
 WORKDIR /usr/src/app
 
 # Copy package files
-COPY package*.json .
+COPY package*.json ./
 
 # Install packages
 RUN npm install -g npm@7
