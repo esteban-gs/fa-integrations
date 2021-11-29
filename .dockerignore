@@ -1,2 +1,7 @@
 node_modules
 dist
+.github
+fa-integrations-ui
+test
+LICENSE
+README.md
