@@ -18,5 +18,11 @@ COPY . .
 # Build our app for production
 RUN npm run build
 
+COPY ./fa-integrations-ui ./fa-integrations-ui
+RUN cd fa-integrations-ui \
+    && npm ci \
+    && npm run build --prod \
+    && cd ..
+
 EXPOSE 3000
 CMD [ "npm", "run", "start:prod" ]

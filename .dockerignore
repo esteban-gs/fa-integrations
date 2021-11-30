@@ -1,7 +1,8 @@
 node_modules
 dist
 .github
-fa-integrations-ui
+fa-integrations-ui/node_modules
+fa-integrations-ui/dist
 test
 LICENSE
 README.md
