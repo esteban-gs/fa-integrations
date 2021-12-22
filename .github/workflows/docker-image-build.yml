@@ -14,5 +14,9 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+    - name: Pull & update submodules recursively
+      run:  |
+        git submodule update --init --recursive
+        git submodule update --recursive --remote
     - name: Build the Docker image
       run: docker build . --file Dockerfile
