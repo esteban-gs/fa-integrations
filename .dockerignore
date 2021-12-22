@@ -1,5 +1,6 @@
 node_modules
 dist
+fa-integrations-ui/cypress
 .github
 fa-integrations-ui/node_modules
 fa-integrations-ui/dist

@@ -21,7 +21,7 @@ export class HealthController {
       () =>
         this.http.pingCheck(
           'app ping',
-          `${this.configs.get('APP_URL_SELF')}/health/ping`,
+          `${this.configs.get('APP_URL_SELF')}/api/health/ping`,
         ),
     ]);
   }

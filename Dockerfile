@@ -18,10 +18,18 @@ COPY . .
 # Build our app for production
 RUN npm run build
 
-COPY ./fa-integrations-ui ./fa-integrations-ui
+# COPY ./fa-integrations-ui ./fa-integrations-ui
+
+# Embedded UI Build configuration:
+# It requires a base ref so that it
+# runs in an /app/ route on its host server
+RUN cd fa-integrations-ui \
+    && npm run pre-build \
+    && cd ..
+
 RUN cd fa-integrations-ui \
     && npm ci \
-    && npm run build --prod \
+    && npm run build \
     && cd ..
 
 EXPOSE 3000
