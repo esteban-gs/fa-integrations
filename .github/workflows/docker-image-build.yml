@@ -13,10 +13,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
-    - name: Pull & update submodules recursively
-      run:  |
+    
+    - name: Pull submodule
+      run: |
         git submodule update --init --recursive
         git submodule update --recursive --remote
+    
+    - uses: actions/checkout@v2
     - name: Build the Docker image
       run: docker build . --file Dockerfile
