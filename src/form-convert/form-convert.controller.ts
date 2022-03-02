@@ -20,7 +20,7 @@ export class FormConvertController {
 
   @Post()
   async post(@Body() submission: any) {
-    console.log(submission);
+    Logger.log(submission);
     if (!!!submission.triggerUrlId || submission.triggerUrlId === '') {
       return new InternalServerErrorException('triggerUrlId is required');
     }
@@ -38,7 +38,6 @@ export class FormConvertController {
     }
 
     Logger.log(triggerUrl, 'request url');
-    // Logger.log(JSON.stringify(submission), 'payload');
     const $submit = await this.serv.submit(triggerUrl, submission);
     const $result = $submit.pipe(
       tap((res: AxiosResponse) => {
