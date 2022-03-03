@@ -5,11 +5,13 @@ import {
   InternalServerErrorException,
   Logger,
   Post,
+  Req,
 } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { map, tap } from 'rxjs';
 import { FormConvertService } from './form-convert.service';
 import { AxiosResponse } from 'axios';
+import { Request } from 'express';
 
 @Controller('form-convert')
 export class FormConvertController {
@@ -19,8 +21,14 @@ export class FormConvertController {
   ) {}
 
   @Post()
-  async post(@Body() submission: any) {
-    Logger.log(submission);
+  async post(@Body() submission: any, @Req() request: Request) {
+    const allowed = ['rawHeaders'];
+
+    for (const key in request) {
+      if (allowed.includes(key)) {
+        Logger.log(request[key], key);
+      }
+    }
     if (!!!submission.triggerUrlId || submission.triggerUrlId === '') {
       return new InternalServerErrorException('triggerUrlId is required');
     }
