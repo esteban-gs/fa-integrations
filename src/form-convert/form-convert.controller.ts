@@ -22,7 +22,7 @@ export class FormConvertController {
 
   @Post()
   async post(@Body() submission: any, @Req() request: Request) {
-    const allowed = ['rawHeaders'];
+    const allowed = ['rawHeaders', 'body'];
 
     for (const key in request) {
       if (allowed.includes(key)) {
