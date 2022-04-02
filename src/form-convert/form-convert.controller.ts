@@ -29,7 +29,6 @@ export class FormConvertController {
     for (const key in request) {
       if (allowed.includes(key)) {
         Logger.log(request[key], key);
-        Logger.log((typeof key).toString(), key);
       }
     }
     if (!!!submission.triggerUrlId || submission.triggerUrlId === '') {
