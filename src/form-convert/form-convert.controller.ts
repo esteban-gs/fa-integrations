@@ -29,7 +29,6 @@ export class FormConvertController {
     for (const key in request) {
       if (allowed.includes(key)) {
         Logger.log(request[key], key);
-        Logger.log((typeof key).toString(), key);
       }
     }
     if (!!!submission.triggerUrlId || submission.triggerUrlId === '') {
@@ -48,11 +47,11 @@ export class FormConvertController {
       return new BadRequestException('trigger url invalid');
     }
 
-    for (const item of submission) {
-      if (Array.isArray(item)) {
+    for (let index = 0; index < submission.length; index++) {
+      if (Array.isArray(submission[index])) {
         // flatten arrays into string
-        const flattened = item.join();
-        submission = { ...submission, flattened };
+        const flattened = submission[index].join();
+        submission[index] = flattened;
       }
     }
 
