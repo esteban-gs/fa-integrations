@@ -12,6 +12,8 @@ import { map, tap } from 'rxjs';
 import { FormConvertService } from './form-convert.service';
 import { AxiosResponse } from 'axios';
 import { Request } from 'express';
+import { catchError } from 'rxjs';
+import { throwError } from 'rxjs';
 
 @Controller('form-convert')
 export class FormConvertController {
@@ -45,11 +47,23 @@ export class FormConvertController {
       return new BadRequestException('trigger url invalid');
     }
 
+    for (const item of submission) {
+      if (Array.isArray(item)) {
+        // flatten arrays into string
+        const flattened = item.join();
+        submission = { ...submission, flattened };
+      }
+    }
+
     Logger.log(triggerUrl, 'request url');
     const $submit = await this.serv.submit(triggerUrl, submission);
     const $result = $submit.pipe(
       tap((res: AxiosResponse) => {
         Logger.log(res.statusText, 'SUBMIT RESULT');
+      }),
+      catchError((err) => {
+        Logger.log(err, 'Trigger Post Response');
+        return throwError(() => new Error(err));
       }),
       map((res: AxiosResponse) => res.status),
     );
