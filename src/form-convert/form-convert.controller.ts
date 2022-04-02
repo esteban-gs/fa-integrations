@@ -48,13 +48,14 @@ export class FormConvertController {
       return new BadRequestException('trigger url invalid');
     }
 
-    for (const item of submission) {
-      if (Array.isArray(item)) {
+    const submissionKeys = Object.keys(submission);
+    submissionKeys.forEach((key: string) => {
+      if (Array.isArray(submission[key])) {
         // flatten arrays into string
-        const flattened = item.join();
-        submission = { ...submission, flattened };
+        const flattened = submission[key].join();
+        submission[key] = flattened;
       }
-    }
+    });
 
     Logger.log(triggerUrl, 'request url');
     const $submit = await this.serv.submit(triggerUrl, submission);
