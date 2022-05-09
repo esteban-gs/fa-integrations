@@ -1,36 +1,33 @@
-FROM node:17-alpine
+# Multi-stage build to take advantage of stage caching
+FROM node:16-alpine as embeddedFrontEnd
 
-# Create app directory
-WORKDIR /usr/src/app
+WORKDIR /usr/src/temp/user-interface
 
-# Copy package files
-COPY package*.json ./
-
-# Install packages
-RUN npm install -g npm@7
-RUN npm ci
-
-# RUN npm install -g @nestjs/cli
-
-# Bundle app source
-COPY . .
-
-# Build our app for production
-RUN npm run build
-
-# COPY ./user-interface ./user-interface
+COPY ./user-interface .
 
 # Embedded UI Build configuration:
 # It requires a base ref so that it
 # runs in an /app/ route on its host server
-RUN cd user-interface \
-    && npm run pre-build \
-    && cd ..
-
-RUN cd user-interface \
+RUN npm run pre-build \
     && npm ci \
-    && npm run build \
-    && cd ..
+    && npm run build
+
+
+FROM node:16-alpine
+
+WORKDIR /usr/src/app
+
+COPY . .
+
+RUN npm ci
+
+RUN npm run build
+
+RUN mkdir -p /app/client
+
+COPY --from=embeddedFrontEnd /usr/src/temp/user-interface/ /usr/src/app/user-interface/
+
+WORKDIR /usr/src/app
 
 EXPOSE 3000
 CMD [ "npm", "run", "start:prod" ]
