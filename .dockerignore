@@ -1,9 +1,9 @@
 node_modules
 dist
-fa-integrations-ui/cypress
+user-interface/cypress
 .github
-fa-integrations-ui/node_modules
-fa-integrations-ui/dist
+user-interface/node_modules
+user-interface/dist
 test
 LICENSE
 README.md

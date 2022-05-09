@@ -1,0 +1,70 @@
+<ng-template #csvErrorTemplate>
+  <p>CSV file formatted incorrectly</p>
+</ng-template>
+
+<div style="width: 60vw" class="card">
+  <div class="card-content">
+    <div class="tui-text_body-m tui-space_top-4 tui-space_bottom-4">
+      Upload a CSV file to start. The CSV headers should be set like the example
+      below.
+    </div>
+
+    <table class="tui-table tui-space_bottom-4">
+      <tbody>
+        <tr class="tui-table__tr">
+          <th class="tui-table__th">firstName</th>
+          <th class="tui-table__th">lastName</th>
+          <th class="tui-table__th">email</th>
+        </tr>
+        <tr class="tui-table__tr">
+          <td class="tui-table__td">Jane</td>
+          <td class="tui-table__td">Doe</td>
+          <td class="tui-table__td">jane.dow@example.com</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div style="margin: 40px 0">
+      <tui-input-file
+        class="container"
+        link="Choose a csv file"
+        accept=".csv"
+        [formControl]="control"
+      ></tui-input-file>
+    </div>
+  </div>
+</div>
+
+<ng-container *ngIf="importPreview.length > 0">
+  <div>
+    <div class="tui-text_body-m">Current Batch</div>
+    <div>
+      <button
+        tuiButton
+        type="button"
+        appearance="primary"
+        class="tui-space_right-3 tui-space_bottom-3"
+        (click)="clearBatchState()"
+      >
+        Discard Batch and Start Over
+      </button>
+    </div>
+
+    <div class="tui-text_body-m">Preview:</div>
+
+    <table class="tui-table">
+      <tbody>
+        <tr class="tui-table__tr">
+          <th class="tui-table__th" *ngFor="let h of previewHeadings">
+            {{ h }}
+          </th>
+        </tr>
+        <tr class="tui-table__tr" *ngFor="let i of importPreview">
+          <td class="tui-table__td">{{ i.firstName }}</td>
+          <td class="tui-table__td">{{ i.lastName }}</td>
+          <td class="tui-table__td">{{ i.email }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</ng-container>
