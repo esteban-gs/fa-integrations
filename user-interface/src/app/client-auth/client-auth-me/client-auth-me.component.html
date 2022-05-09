@@ -1,0 +1,61 @@
+<div class="container">
+  <div class="tui-row">
+    <div class="tui-col_md-12 mb-4">
+      <tui-island>
+        <p class="tui-island__category">Client Authentication</p>
+        <h3 class="tui-island__title">Enter your Client API Key</h3>
+        <p class="tui-island__paragraph">
+          You Client API Key will be used to validate your submission to
+          the backend.
+        </p>
+      </tui-island>
+    </div>
+
+    <div class="tui-col_md-12">
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div class="field">
+          <tui-input formControlName="client-key" class="b-form">
+            Enter your Api Key
+          </tui-input>
+
+          <ng-container *ngIf="clientKey.touched && clientKey.errors?.required">
+            <tui-error error="Key is required"></tui-error>
+          </ng-container>
+        </div>
+
+        <div class="is-flex is-flex-direction-column is-align-items-center">
+          <button
+            tuiButton
+            type="button"
+            class="tui-space_right-3 tui-space_bottom-3"
+            [disabled]="!form.valid"
+          >
+            Submit
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="wrapper">
+  <ng-container *ngIf="notifyFormFail">
+    <tui-notification status="error" class="tui-space_top-4">
+        There was an error with your submission
+    </tui-notification>
+  </ng-container>
+  <ng-container *ngIf="notifyFormSuccess">
+    <tui-notification status="success" class="tui-space_top-4">
+        Your Key has Been Saved
+    </tui-notification>
+  </ng-container>
+  <!-- <tui-notification status="error" class="tui-space_top-4">
+      A short simple informative message. It can
+      be&nbsp;multiline&nbsp;if&nbsp;you&nbsp;need it
+  </tui-notification>
+  <tui-notification status="warning" class="tui-space_top-4">
+      A short simple informative message. It can
+      be&nbsp;multiline&nbsp;if&nbsp;you&nbsp;need it
+  </tui-notification> -->
+</div>
+
