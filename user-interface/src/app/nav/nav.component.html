@@ -1,0 +1,40 @@
+<nav class="navbar is-fixed-top is-link" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <div class="navbar-item">
+      <button
+        tuiIconButton
+        icon="tuiIconMenuLarge"
+        type="button"
+        (click)="toggle(true)"
+        (tuiActiveZoneChange)="toggle($event)"
+      >
+        <div *tuiSidebar="open; direction: 'right'" class="section">
+          <aside class="menu">
+            <ng-container *ngFor="let menu of menus">
+              <p class="menu-label">
+                {{ menu.label }}
+              </p>
+              <ul class="menu-list">
+                <li *ngFor="let item of menu.menu">
+                  <a
+                    tuiLink
+                    [icon]="item.icon"
+                    (click)="toggle(false)"
+                    [routerLink]="item.link"
+                    iconAlign="left"
+                  >
+                    {{ item.label }}</a
+                  >
+                </li>
+              </ul>
+            </ng-container>
+          </aside>
+        </div>
+      </button>
+    </div>
+
+    <div class="navbar-item has-text-light is-size-4">
+      FA Integrations
+    </div>
+  </div>
+</nav>
