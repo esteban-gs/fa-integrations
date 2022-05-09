@@ -23,7 +23,7 @@ import { LoggerMiddlewareService } from './shared/logger-middleware/logger-middl
     ConfigurationsModule,
     HealthModule,
     ServeStaticModule.forRoot({
-      rootPath: join(__dirname, '..', 'fa-integrations-ui/dist/'),
+      rootPath: join(__dirname, '..', 'user-interface/dist/'),
       exclude: ['/api*'],
       serveRoot: '/app',
       renderPath: '',
