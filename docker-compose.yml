@@ -2,10 +2,14 @@
 version: "3"
 services:
 
-  api:
-    build:
-      context: .
-    env_file: 
-      - .env
+  db:
+    container_name: faconvert_db
+    image: postgres:12.4
     ports:
-      - 3000:3000
+      - 5432:5432
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+    volumes:
+      - ./pgdata-staging:/var/lib/postgresql/data
