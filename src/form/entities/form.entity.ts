@@ -15,13 +15,16 @@ export class Form {
 
   @Property()
   @Unique()
-  formKey: string;
+  key: string;
 
   @Property()
   active: boolean;
 
   @Property()
-  formName: string;
+  name: string;
+
+  @Property()
+  url: string;
 
   @Property()
   description: string;

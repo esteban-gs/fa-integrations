@@ -15,8 +15,8 @@
           "nullable": false,
           "mappedType": "integer"
         },
-        "form_key": {
-          "name": "form_key",
+        "key": {
+          "name": "key",
           "type": "varchar(255)",
           "unsigned": false,
           "autoincrement": false,
@@ -33,8 +33,17 @@
           "nullable": false,
           "mappedType": "boolean"
         },
-        "form_name": {
-          "name": "form_name",
+        "name": {
+          "name": "name",
+          "type": "varchar(255)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "string"
+        },
+        "url": {
+          "name": "url",
           "type": "varchar(255)",
           "unsigned": false,
           "autoincrement": false,
@@ -77,10 +86,10 @@
       "indexes": [
         {
           "columnNames": [
-            "form_key"
+            "key"
           ],
           "composite": false,
-          "keyName": "form_form_key_unique",
+          "keyName": "form_key_unique",
           "primary": false,
           "unique": true
         },
