@@ -14,10 +14,19 @@ import { HealthModule } from './health/health.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
 import { LoggerMiddlewareService } from './shared/logger-middleware/logger-middleware.service';
+import { MikroOrmModule } from '@mikro-orm/nestjs';
+import { MikroormConnectionService } from './mikroorm-connection.service';
+import { FormModule } from './form/form.module';
 
 @Module({
   imports: [
+    ConfigModule.forRoot({
+      isGlobal: true,
+    }),
     ConfigModule.forRoot(),
+    MikroOrmModule.forRootAsync({
+      useClass: MikroormConnectionService,
+    }),
     FormAdaptorModule,
     HttpModule,
     ConfigurationsModule,
@@ -28,9 +37,14 @@ import { LoggerMiddlewareService } from './shared/logger-middleware/logger-middl
       serveRoot: '/app',
       renderPath: '',
     }),
+    FormModule,
   ],
   controllers: [FormConvertController],
-  providers: [FormConvertService, LoggerMiddlewareService],
+  providers: [
+    FormConvertService,
+    LoggerMiddlewareService,
+    MikroormConnectionService,
+  ],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {

@@ -38,5 +38,4 @@ const config:
     pathTs: 'src/migrations',
   },
 };
-console.log(config);
 export default { ...config };
